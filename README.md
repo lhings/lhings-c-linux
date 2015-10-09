@@ -19,7 +19,7 @@ For ease of use, project files for both [Netbeans](https://netbeans.org/) and
 [Code::Blocks](http://www.codeblocks.org/) IDE's are provided. 
 
 ## Using the library
-Reference documentation of the library is provided using DOxygen. 
+[Reference documentation of the library](http://lhings.github.io/lhings-c-linux/files.html) is provided using DOxygen. 
 
 A simple complete example on how to use the library can be found in the file `main.c`.
 
@@ -92,4 +92,4 @@ Bear in mind that in order to communicate with Lhings HTTPS is needed.
 * `abstraction/permanent-storage/storage_api.h`: provides access to the permanent storage of the device. 
 
 These files define an API which the rest of the library uses to access platform dependent features. Implementation
-details can be found in the DOxygen documentation of each header file.
+details can be found in the [DOxygen documentation of each header file](http://lhings.github.io/lhings-c-linux/files.html).
