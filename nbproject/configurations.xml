@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="91">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <logicalFolder name="HeaderFiles"
+                   displayName="Header Files"
+                   projectFiles="true">
+      <itemPath>core/utils/data_structures.h</itemPath>
+      <itemPath>abstraction/http-comm/http_api.h</itemPath>
+      <itemPath>utils/jsmn.h</itemPath>
+      <itemPath>core/utils/json-builder.h</itemPath>
+      <itemPath>core/utils/json.h</itemPath>
+      <itemPath>core/lhings.h</itemPath>
+      <itemPath>core/http-comm/lhings_api.h</itemPath>
+      <itemPath>core/utils/lhings_json_api.h</itemPath>
+      <itemPath>abstraction/timing/lhings_time.h</itemPath>
+      <itemPath>core/logging/log.h</itemPath>
+      <itemPath>utils/newfile.h</itemPath>
+      <itemPath>file-system/storage_api.h</itemPath>
+      <itemPath>core/stun-messaging/stun_message.h</itemPath>
+      <itemPath>abstraction/udp-comm/udp_api.h</itemPath>
+      <itemPath>core/utils/utils.h</itemPath>
+    </logicalFolder>
+    <logicalFolder name="ResourceFiles"
+                   displayName="Resource Files"
+                   projectFiles="true">
+    </logicalFolder>
+    <logicalFolder name="SourceFiles"
+                   displayName="Source Files"
+                   projectFiles="true">
+      <logicalFolder name="crypto" displayName="crypto" projectFiles="true">
+        <itemPath>core/crypto/base64.c</itemPath>
+        <itemPath>core/crypto/hmac-sha1.c</itemPath>
+        <itemPath>core/crypto/hmac.h</itemPath>
+        <itemPath>core/crypto/memxor.c</itemPath>
+        <itemPath>core/crypto/memxor.h</itemPath>
+        <itemPath>core/crypto/sha1.c</itemPath>
+        <itemPath>core/crypto/sha1.h</itemPath>
+      </logicalFolder>
+      <logicalFolder name="stun-messaging"
+                     displayName="stun-messaging"
+                     projectFiles="true">
+      </logicalFolder>
+      <logicalFolder name="utils" displayName="utils" projectFiles="true">
+      </logicalFolder>
+      <itemPath>core/utils/data_structures.c</itemPath>
+      <itemPath>tests/data_structures_tests.c</itemPath>
+      <itemPath>tests/hmac_sha1_test.c</itemPath>
+      <itemPath>abstraction/http-comm/http_api.c</itemPath>
+      <itemPath>core/utils/json-builder.c</itemPath>
+      <itemPath>core/utils/json.c</itemPath>
+      <itemPath>core/lhings.c</itemPath>
+      <itemPath>core/http-comm/lhings_api.c</itemPath>
+      <itemPath>core/utils/lhings_json_api.c</itemPath>
+      <itemPath>abstraction/timing/lhings_time.c</itemPath>
+      <itemPath>core/logging/log.c</itemPath>
+      <itemPath>tests/logging_system_tests.c</itemPath>
+      <itemPath>main.c</itemPath>
+      <itemPath>abstraction/permanent-storage/storage_api.c</itemPath>
+      <itemPath>core/stun-messaging/stun_message.c</itemPath>
+      <itemPath>tests/stun_message_tests.c</itemPath>
+      <itemPath>abstraction/udp-comm/udp_api.c</itemPath>
+      <itemPath>core/utils/utils.c</itemPath>
+    </logicalFolder>
+    <logicalFolder name="TestFiles"
+                   displayName="Test Files"
+                   projectFiles="false"
+                   kind="TEST_LOGICAL_FOLDER">
+    </logicalFolder>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceRootList>
+    <Elem>crypto</Elem>
+    <Elem>utils</Elem>
+    <Elem>stun-messaging</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Debug" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <warningLevel>2</warningLevel>
+        </cTool>
+        <linkerTool>
+          <linkerLibItems>
+            <linkerOptionItem>`pkg-config --libs libcurl`</linkerOptionItem>
+            <linkerLibStdlibItem>Mathematics</linkerLibStdlibItem>
+          </linkerLibItems>
+        </linkerTool>
+      </compileType>
+      <item path="abstraction/http-comm/http_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/http-comm/http_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/permanent-storage/storage_api.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="abstraction/timing/lhings_time.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/timing/lhings_time.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/udp-comm/udp_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/udp-comm/udp_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/base64.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/hmac-sha1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/hmac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/memxor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/memxor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/sha1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/sha1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/http-comm/lhings_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/http-comm/lhings_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/lhings.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/lhings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/logging/log.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/logging/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/stun-messaging/stun_message.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/stun-messaging/stun_message.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/data_structures.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/data_structures.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/json-builder.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/json-builder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/json.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/json.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/lhings_json_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/lhings_json_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/utils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file-system/storage_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/data_structures_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/hmac_sha1_test.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/logging_system_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/stun_message_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/jsmn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/newfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+    <conf name="Release" type="1">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>true</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <compileType>
+        <cTool>
+          <developmentMode>5</developmentMode>
+        </cTool>
+        <ccTool>
+          <developmentMode>5</developmentMode>
+        </ccTool>
+        <fortranCompilerTool>
+          <developmentMode>5</developmentMode>
+        </fortranCompilerTool>
+        <asmTool>
+          <developmentMode>5</developmentMode>
+        </asmTool>
+      </compileType>
+      <item path="abstraction/http-comm/http_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/http-comm/http_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/permanent-storage/storage_api.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="abstraction/timing/lhings_time.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/timing/lhings_time.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/udp-comm/udp_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="abstraction/udp-comm/udp_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/base64.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/hmac-sha1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/hmac.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/memxor.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/memxor.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/crypto/sha1.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/crypto/sha1.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/http-comm/lhings_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/http-comm/lhings_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/lhings.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/lhings.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/logging/log.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/logging/log.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/stun-messaging/stun_message.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/stun-messaging/stun_message.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/data_structures.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/data_structures.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/json-builder.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/json-builder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/json.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/json.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/lhings_json_api.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/lhings_json_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="core/utils/utils.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="core/utils/utils.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="file-system/storage_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="main.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/data_structures_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/hmac_sha1_test.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/logging_system_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="tests/stun_message_tests.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="utils/jsmn.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="utils/newfile.h" ex="false" tool="3" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
