@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="lhings-c-linux" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/lhings-c-linux" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-lcurl -lm" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/lhings-c-linux" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-Os" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+					<Add library="curl" />
+					<Add library="m" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="abstraction/http-comm/http_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="abstraction/http-comm/http_api.h" />
+		<Unit filename="abstraction/permanent-storage/storage_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="abstraction/permanent-storage/storage_api.h" />
+		<Unit filename="abstraction/timing/lhings_time.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="abstraction/timing/lhings_time.h" />
+		<Unit filename="abstraction/udp-comm/udp_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="abstraction/udp-comm/udp_api.h" />
+		<Unit filename="core/crypto/base64.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/crypto/hmac-sha1.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/crypto/hmac.h" />
+		<Unit filename="core/crypto/memxor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/crypto/memxor.h" />
+		<Unit filename="core/crypto/sha1.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/crypto/sha1.h" />
+		<Unit filename="core/http-comm/lhings_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/http-comm/lhings_api.h" />
+		<Unit filename="core/lhings.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/lhings.h" />
+		<Unit filename="core/logging/log.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/logging/log.h" />
+		<Unit filename="core/stun-messaging/stun_message.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/stun-messaging/stun_message.h" />
+		<Unit filename="core/utils/data_structures.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/utils/data_structures.h" />
+		<Unit filename="core/utils/json-builder.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/utils/json-builder.h" />
+		<Unit filename="core/utils/json.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/utils/json.h" />
+		<Unit filename="core/utils/lhings_json_api.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/utils/lhings_json_api.h" />
+		<Unit filename="core/utils/utils.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="core/utils/utils.h" />
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
