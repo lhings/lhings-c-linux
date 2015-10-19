@@ -23,140 +23,164 @@
 #include "../abstraction/timing/lhings_time.h"
 #include "../abstraction/permanent-storage/storage_api.h"
 #include "../abstraction/udp-comm/udp_api.h"
-#include "utils/json.h"
-#include "utils/json-builder.h"
 #include "stun-messaging/stun_message.h"
 #include "utils/utils.h"
 
-json_value* generate_json_array_of_components(LH_List *components) {
-    if (components == NULL)
-        return json_array_new(0);
-
-    int num_status = components->size;
-    json_value *components_json_array = json_array_new(num_status);
-
-    int j;
-    for (j = 0; j < num_status; j++) {
-        LH_Component *component = (LH_Component*) lh_list_get(components, j);
-        json_value *json_component = json_object_new(2);
-        json_value *name_value = json_string_new(component->name);
-        json_object_push(json_component, "name", name_value);
-
-        json_value *type_value;
-        switch (component->type) {
-            case LH_TYPE_INTEGER:
-                type_value = json_string_new("integer");
-                break;
-            case LH_TYPE_FLOAT:
-                type_value = json_string_new("float");
-                break;
-            case LH_TYPE_STRING:
-                type_value = json_string_new("string");
-                break;
-            case LH_TYPE_TIMESTAMP:
-                type_value = json_string_new("timestamp");
-                break;
-            case LH_TYPE_BOOLEAN:
-                type_value = json_string_new("boolean");
-                break;
-            default:
-                log_warn("Unable to generate descriptor: unrecognized type of component. Skipping.");
-                continue;
-        }
-
-        json_object_push(json_component, "type", type_value);
-        json_array_push(components_json_array, json_component);
-    }
-    return components_json_array;
+int component_json_len(LH_Component *component) {
+    return MIN_COMP_JSON_LEN + strlen(component->name) + MAX_STR_TYPE_LEN;
 }
 
-json_value* generate_json_array_of_actions(LH_List *actions) {
+int action_json_len(LH_Action *action) {
+    int json_len = MIN_ACTION_JSON_LEN;
+    json_len += strlen(action->name);
+    if (action->description != NULL)
+        json_len += strlen(action->description);
+    if (action->arguments != NULL) {
+        int num_args = action->arguments->size;
+        int j;
+        for (j = 0; j < num_args; j++) {
+            json_len += component_json_len((LH_Component *) lh_list_get(action->arguments, j));
+        }
+    }
+    return json_len;
+}
+
+int event_json_len(LH_Event *event) {
+    int json_len = MIN_EVENT_JSON_LEN;
+    json_len += strlen(event->name);
+    if (event->components != NULL) {
+        int num_comps = event->components->size;
+        int j;
+        for (j = 0; j < num_comps; j++) {
+            json_len += component_json_len((LH_Component *) lh_list_get(event->components, j));
+        }
+    }
+    return json_len;
+}
+
+int get_descriptor_len(LH_Device *device) {
+    int json_len = MIN_DESCRIPTOR_JSON_LEN;
+    if (device->info.model_name != NULL)
+        json_len += strlen(device->info.model_name);
+    if (device->info.model_name != NULL)
+        json_len += strlen(device->info.manufacturer);
+    if (device->info.model_name != NULL)
+        json_len += strlen(device->info.device_type);
+    if (device->info.model_name != NULL)
+        json_len += strlen(device->info.serial_number);
+    int j;
+    if (device->status_components != NULL) {
+        for (j = 0; j < device->status_components->size; j++) {
+            json_len += component_json_len((LH_Component*) lh_list_get(device->status_components, j));
+        }
+    }
+    if (device->actions != NULL) {
+        for (j = 0; j < device->actions->size; j++) {
+            json_len += action_json_len((LH_Action*) lh_list_get(device->actions, j));
+        }
+    }
+    if (device->events != NULL) {
+        for (j = 0; j < device->events->size; j++) {
+            json_len += event_json_len((LH_Event*) lh_list_get(device->events, j));
+        }
+    }
+    return json_len;
+}
+
+void add_components(char* str_json, LH_List *components) {
+    if (components == NULL)
+        return;
+    int num_comps = components->size;
+    int j;
+    for (j = 0; j < num_comps; j++) {
+        LH_Component *component = (LH_Component*) lh_list_get(components, j);
+        strcat(str_json, "{\"name\":\"");
+        strcat(str_json, component->name);
+        strcat(str_json, "\",\"type\":\"");
+        switch (component->type) {
+            case LH_TYPE_BOOLEAN:
+                strcat(str_json, "boolean");
+                break;
+            case LH_TYPE_INTEGER:
+                strcat(str_json, "integer");
+                break;
+            case LH_TYPE_TIMESTAMP:
+                strcat(str_json, "timestamp");
+                break;
+            case LH_TYPE_FLOAT:
+                strcat(str_json, "float");
+                break;
+            case LH_TYPE_STRING:
+                strcat(str_json, "string");
+                break;
+            case LH_TYPE_NO_TYPE:
+            default:
+                break;
+        }
+        strcat(str_json, "\"}");
+        if (j != num_comps - 1)
+            strcat(str_json, ",");
+    }
+}
+
+void add_actions(char *str_json, LH_List *actions) {
     int num_actions = actions->size;
-    json_value *actions_json_array = json_array_new(num_actions);
     int j;
     for (j = 0; j < num_actions; j++) {
         LH_Action *action = (LH_Action*) lh_list_get(actions, j);
-        json_value *json_action = json_object_new(3);
-        json_object_push(json_action, "name", json_string_new(action->name));
-        if (action->description == NULL)
-            json_object_push(json_action, "description", json_null_new());
-        else
-            json_object_push(json_action, "description", json_string_new(action->description));
-
-        if (action->arguments == NULL)
-            json_object_push(json_action, "inputs", json_array_new(0));
-        else
-            json_object_push(json_action, "inputs", generate_json_array_of_components(action->arguments));
-
-        json_array_push(actions_json_array, json_action);
+        strcat(str_json, "{\"name\":\"");
+        strcat(str_json, action->name);
+        strcat(str_json, "\",\"description\":\"");
+        if (action->description != NULL)
+            strcat(str_json, action->description);
+        strcat(str_json, "\",\"inputs\":[");
+        add_components(str_json, action->arguments);
+        strcat(str_json, "]}");
+        if (j != num_actions - 1)
+            strcat(str_json, ",");
     }
-    return actions_json_array;
 }
 
-json_value* generate_json_array_of_events(LH_List *events) {
+void add_events(char *str_json, LH_List *events) {
     int num_events = events->size;
-    json_value *events_json_array = json_array_new(num_events);
     int j;
     for (j = 0; j < num_events; j++) {
         LH_Event *event = (LH_Event*) lh_list_get(events, j);
-        json_value *json_event = json_object_new(3);
-        json_object_push(json_event, "name", json_string_new(event->name));
-
-        if (event->components == NULL)
-            json_object_push(json_event, "components", json_array_new(0));
-        else
-            json_object_push(json_event, "components", generate_json_array_of_components(event->components));
-
-        json_array_push(events_json_array, json_event);
+        strcat(str_json, "{\"name\":\"");
+        strcat(str_json, event->name);
+        strcat(str_json, "\",\"components\":[");
+        add_components(str_json, event->components);
+        strcat(str_json, "]}");
+        if (j != num_events - 1)
+            strcat(str_json, ",");
     }
-    return events_json_array;
-}
-
-void add_status_to_descriptor(LH_Device *device, json_value *descriptor) {
-    json_value *status_json_array = generate_json_array_of_components(device->status_components);
-    json_object_push(descriptor, "stateVariableList", status_json_array);
-}
-
-void add_actions_to_descriptor(LH_Device *device, json_value *descriptor) {
-    json_value *actions_json_array = generate_json_array_of_actions(device->actions);
-    json_object_push(descriptor, "actionList", actions_json_array);
-}
-
-void add_events_to_descriptor(LH_Device *device, json_value *descriptor) {
-    json_value *events_json_array = generate_json_array_of_events(device->events);
-    json_object_push(descriptor, "eventList", events_json_array);
 }
 
 char* generate_descriptor(LH_Device *device) {
-    json_value *descriptor = json_object_new(8);
-    json_object_push(descriptor, "modelName", json_string_new(device->info.model_name));
-    json_object_push(descriptor, "manufacturer", json_string_new(device->info.manufacturer));
-    json_object_push(descriptor, "deviceType", json_string_new(device->info.device_type));
-    json_object_push(descriptor, "serialNumber", json_string_new(device->info.serial_number));
+    int json_len = get_descriptor_len(device);
+    char* str_json = malloc(json_len * sizeof str_json);
+    strcpy(str_json, "{\"modelName\":\"");
+    if (device->info.model_name != NULL)
+        strcat(str_json, device->info.model_name);
+    strcat(str_json, "\",\"manufacturer\":\"");
+    if (device->info.manufacturer != NULL)
+        strcat(str_json, device->info.manufacturer);
+    strcat(str_json, "\",\"deviceType\":\"");
+    if (device->info.device_type != NULL)
+        strcat(str_json, device->info.device_type);
+    strcat(str_json, "\",\"serialNumber\":\"");
+    if (device->info.serial_number != NULL)
+        strcat(str_json, device->info.serial_number);
+    strcat(str_json, "\",\"version\":1,\"stateVariableList\":[");
+    add_components(str_json, device->status_components);
+    strcat(str_json, "],\"actionList\":[");
+    add_actions(str_json, device->actions);
+    strcat(str_json, "],\"eventList\":[");
+    add_events(str_json, device->events);
+    strcat(str_json, "]}");
 
-
-    // add status components
-    if (device->status_components != NULL)
-        add_status_to_descriptor(device, descriptor);
-    else
-        json_object_push(descriptor, "stateVariableList", json_array_new(0));
-
-    // add events
-    if (device->events != NULL)
-        add_events_to_descriptor(device, descriptor);
-    else
-        json_object_push(descriptor, "eventList", json_array_new(0));
-
-    // add actions
-    if (device->actions != NULL)
-        add_actions_to_descriptor(device, descriptor);
-    else
-        json_object_push(descriptor, "actionList", json_array_new(0));
-
-    char *json_descriptor = malloc(json_measure(descriptor) * sizeof *json_descriptor);
-    json_serialize(json_descriptor, descriptor);
-    json_builder_free(descriptor);
-    return json_descriptor;
+    printf("***********\n%s\n*************\n", str_json);
+    return str_json;
 }
 
 int retry_send_device_descriptor(LH_Device *device, char *descriptor) {
@@ -544,7 +568,7 @@ int lh_start_device(LH_Device *device, char *device_name, char *username, char *
         device->uuid = uuid;
     }
     // call user defined setup function
-    log_info("Configuring device")
+    log_info("Configuring device");
     setup();
 
     // send descriptor file
@@ -561,7 +585,7 @@ int lh_start_device(LH_Device *device, char *device_name, char *username, char *
     do {
         success = retry_start_session(device);
     } while (!success);
-    log_info("Session started!")
+    log_info("Session started!");
     // send first keepalive
     send_keepalive(device);
     // main loop
@@ -639,39 +663,89 @@ void lh_model_free_component(LH_Component *component) {
 }
 
 char *build_structured_payload(LH_List *components) {
+    char name_key[9] = "\"name\":\"";
+    char value_key[11] = "\",\"value\":";
+    char str_true[5] = "true";
+    char str_false[6] = "false";
+    char str_buffer[16] = "";
+    int true_len = 4;
+    int false_len = 5;
+    int name_len = 8;
+    int value_len = 10;
+    int json_len = 0;
     int j;
-    json_value *json = json_array_new(components->size);
     for (j = 0; j < components->size; j++) {
-        json_value *json_component = json_object_new(2);
         LH_Component *component = lh_list_get(components, j);
-        json_object_push(json_component, "name", json_string_new(component->name));
+        json_len += strlen(component->name) + 2;
         switch (component->type) {
             case LH_TYPE_BOOLEAN:
-                json_object_push(json_component, "value", json_boolean_new((int) *(uint32_t *) component->value));
+                if ((uint32_t *) component->value)
+                    json_len += true_len;
+                else
+                    json_len += false_len;
                 break;
             case LH_TYPE_INTEGER:
             case LH_TYPE_TIMESTAMP:
-                json_object_push(json_component, "value", json_integer_new((int) *(uint32_t *) component->value));
+                snprintf(str_buffer, 16, "%d", (int) *(uint32_t*) component->value);
+                json_len += strlen(str_buffer);
                 break;
             case LH_TYPE_FLOAT:
-                json_object_push(json_component, "value", json_double_new((double) *(float *) component->value));
+                snprintf(str_buffer, 16, "%f", *(float *) component->value);
+                json_len += strlen(str_buffer);
                 break;
             case LH_TYPE_STRING:
-                json_object_push(json_component, "value", json_string_new((char *) component->value));
+                json_len += strlen((char*) component->value) + 2;
                 break;
             case LH_TYPE_NO_TYPE:
             default:
                 break;
         }
-        json_array_push(json, json_component);
     }
-    char *json_payload = malloc (json_measure(json) * sizeof *json_payload);
-    json_serialize(json_payload, json);
-    json_builder_free(json);
-    return json_payload;
+
+    json_len += j * (name_len + value_len + 4) + 3;
+    char *json_str = malloc(json_len * sizeof json_str);
+    strcpy(json_str, "[");
+    for (j = 0; j < components->size; j++) {
+        LH_Component *component = lh_list_get(components, j);
+        strcat(json_str, "{");
+        strcat(json_str, name_key);
+        strcat(json_str, component->name);
+        strcat(json_str, value_key);
+        switch (component->type) {
+            case LH_TYPE_BOOLEAN:
+                if ((uint32_t *) component->value)
+                    strcat(json_str, str_true);
+                else
+                    strcat(json_str, str_false);
+                break;
+            case LH_TYPE_INTEGER:
+            case LH_TYPE_TIMESTAMP:
+                snprintf(str_buffer, 16, "%d", (int) *(uint32_t*) component->value);
+                strcat(json_str, str_buffer);
+                break;
+            case LH_TYPE_FLOAT:
+                snprintf(str_buffer, 16, "%f", *(float *) component->value);
+                strcat(json_str, str_buffer);
+                break;
+            case LH_TYPE_STRING:
+                strcat(json_str, "\"");
+                strcat(json_str, (char*) component->value);
+                strcat(json_str, "\"");
+                break;
+            case LH_TYPE_NO_TYPE:
+            default:
+                break;
+        }
+        if (j != components->size -1)
+            strcat(json_str, "},");
+        else
+            strcat(json_str, "}");
+    }
+    strcat(json_str, "]");
+    return json_str;
 }
 
-int lh_send_event(LH_Device *device, char *event_name, char *payload, LH_List *components) {
+int lh_send_event(LH_Device *device, char *event_name, char *payload, LH_List * components) {
     int j;
     int event_found = 0;
     LH_Event *event;

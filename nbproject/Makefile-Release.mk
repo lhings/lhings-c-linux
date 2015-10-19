@@ -48,8 +48,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/core/logging/log.o \
 	${OBJECTDIR}/core/stun-messaging/stun_message.o \
 	${OBJECTDIR}/core/utils/data_structures.o \
-	${OBJECTDIR}/core/utils/json-builder.o \
-	${OBJECTDIR}/core/utils/json.o \
 	${OBJECTDIR}/core/utils/lhings_json_api.o \
 	${OBJECTDIR}/core/utils/utils.o \
 	${OBJECTDIR}/main.o \
@@ -147,16 +145,6 @@ ${OBJECTDIR}/core/utils/data_structures.o: core/utils/data_structures.c
 	${MKDIR} -p ${OBJECTDIR}/core/utils
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core/utils/data_structures.o core/utils/data_structures.c
-
-${OBJECTDIR}/core/utils/json-builder.o: core/utils/json-builder.c 
-	${MKDIR} -p ${OBJECTDIR}/core/utils
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core/utils/json-builder.o core/utils/json-builder.c
-
-${OBJECTDIR}/core/utils/json.o: core/utils/json.c 
-	${MKDIR} -p ${OBJECTDIR}/core/utils
-	${RM} "$@.d"
-	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/core/utils/json.o core/utils/json.c
 
 ${OBJECTDIR}/core/utils/lhings_json_api.o: core/utils/lhings_json_api.c 
 	${MKDIR} -p ${OBJECTDIR}/core/utils

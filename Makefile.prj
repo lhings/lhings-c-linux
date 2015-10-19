@@ -1,0 +1,80 @@
+# Makefile for Lhings C library 
+
+# compiler
+CC = gcc
+
+#Output directory
+OUT_DIR = build
+
+# compile flags for release builds
+CFLAGS = -c -Wall -Os 
+
+# link flags
+LDFLAGS = -lm -lcurl 
+
+# compile flags for debug builds
+DFLAGS = -g
+
+# name of executable file
+EXECUTABLE = lhings-c
+
+debug: CFLAGS += $(DFLAGS)
+debug: all
+	$(CC) $(OUT_DIR)/*.o $(LDFLAGS) -o $(OUT_DIR)/$(EXECUTABLE) 
+
+release: all
+	$(CC) $(OUT_DIR)/*.o $(LDFLAGS) -o $(OUT_DIR)/$(EXECUTABLE) 
+
+all: main core abstraction
+
+
+build_dir:
+	mkdir -p $(OUT_DIR)
+
+main: main.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/main.o main.c
+
+core: lhings crypto http-comm logging messaging utils
+
+abstraction: abs-http-comm permanent-storage timing udp-comm
+
+abs-http-comm: abstraction/http-comm/http_api.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/http_api.o abstraction/http-comm/http_api.c
+
+permanent-storage: abstraction/permanent-storage/storage_api.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/storage_api.o abstraction/permanent-storage/storage_api.c
+
+timing: abstraction/timing/lhings_time.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/lhings_time.o abstraction/timing/lhings_time.c
+
+udp-comm: abstraction/udp-comm/udp_api.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/udp_api.o abstraction/udp-comm/udp_api.c
+
+
+lhings: core/lhings.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/lhings.o core/lhings.c
+
+crypto: core/crypto/base64.c core/crypto/hmac-sha1.c core/crypto/sha1.c core/crypto/memxor.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/base64.o core/crypto/base64.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/hmac-sha1.o core/crypto/hmac-sha1.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/sha1.o core/crypto/sha1.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/memxor.o core/crypto/memxor.c
+
+http-comm: core/http-comm/lhings_api.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/lhings_api.o core/http-comm/lhings_api.c
+
+logging: core/logging/log.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/log.o core/logging/log.c
+
+messaging: core/stun-messaging/stun_message.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/stun_message.o core/stun-messaging/stun_message.c
+
+utils: core/utils/data_structures.c core/utils/lhings_json_api.c core/utils/utils.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/data_structures.o core/utils/data_structures.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/lhings_json_api.o core/utils/lhings_json_api.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/utils.o core/utils/utils.c
+
+clean: build_dir
+	rm -f $(OUT_DIR)/*.o
+	rm -f $(OUT_DIR)/$(EXECUTABLE)
+	

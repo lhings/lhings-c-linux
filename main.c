@@ -97,7 +97,7 @@ void loop() {
 
 int main() {
     log_set_level(LOG_DEBUG);
-        lh_start_device(&this_device, "C_Super_Device2", "user@example.com", "password");
+        lh_start_device(&this_device, "C_Super_Device2", "jose@lhings.com", "eniac");
     
 }
 

@@ -14,62 +14,89 @@
  */
 
 #include <string.h>
-#include "json.h"
 #include "lhings_json_api.h"
 #include "../logging/log.h"
 
-char* lh_json_get_dev_uuid(char *json_text){
-    json_value *parsed_json = json_parse(json_text, strlen(json_text));
-    LH_Dict* name_value_pair = lh_dict_new();
-    if (parsed_json->type != json_object || parsed_json->u.object.length != 2) {
-        log_error("Given json could not be parsed.");
+char* lh_json_get_dev_uuid(char *json_text) {
+    char *token = strtok(json_text, "\"");
+    char error_message[] = "Given json could not be parsed.";
+    if(token == NULL){
+        log_error(error_message);
         return NULL;
     }
-
-    if(parsed_json->u.object.values[0].value->type != json_string || parsed_json->u.object.values[1].value->type != json_string){
-        log_error("Only strings supported for values in name value pairs.");
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
         return NULL;
     }
     
-    int j;
-    for (j=0; j<2; j++){
-        char* key = parsed_json->u.object.values[j].name;
-        char* value = parsed_json->u.object.values[j].value->u.string.ptr;
-        lh_dict_put(name_value_pair, key, value);
+    if (strlen(token) != UUID_STRING_LEN){
+        log_error("UUID with wrong length received");
+        return NULL;
     }
-    
-    char *uuid = (char*)lh_dict_get(name_value_pair, "uuid");
-    char *returned_uuid = malloc(strlen(uuid) * sizeof(returned_uuid) + 1);
-    strcpy(returned_uuid, uuid);
-    json_value_free(parsed_json);
-    lh_dict_free(name_value_pair);
+    char *returned_uuid = malloc((UUID_STRING_LEN + 1) * sizeof *returned_uuid);
+    strncpy(returned_uuid, token, UUID_STRING_LEN + 1);
     return returned_uuid;
 }
 
 char* lh_json_get_api_key(char *json_text) {
-    json_value *parsed_json = json_parse(json_text, strlen(json_text));
-    LH_Dict* name_value_pair = lh_dict_new();
-    if (parsed_json->type != json_object || parsed_json->u.object.length != 2) {
-        log_error("Given json could not be parsed as name value pair.");
+    char *token = strtok(json_text, "\"");
+    char error_message[] = "Given json could not be parsed.";
+    if(token == NULL){
+        log_error(error_message);
         return NULL;
     }
-
-    if(parsed_json->u.object.values[0].value->type != json_string || parsed_json->u.object.values[1].value->type != json_string){
-        log_error("Only strings supported for values in name value pairs.");
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    token = strtok(NULL, "\"");
+    if(token == NULL){
+        log_error(error_message);
+        return NULL;
+    }
+    if (strlen(token) != UUID_STRING_LEN){
+        log_error("API-key with wrong length received");
         return NULL;
     }
     
-    int j;
-    for (j=0; j<2; j++){
-        char* key = parsed_json->u.object.values[j].name;
-        char* value = parsed_json->u.object.values[j].value->u.string.ptr;
-        lh_dict_put(name_value_pair, key, value);
-    }
-    
-    char *api_key = (char*)lh_dict_get(name_value_pair, "value");
-    char *returned_api_key = malloc(strlen(api_key) * sizeof(returned_api_key) + 1);
-    strcpy(returned_api_key, api_key);
-    json_value_free(parsed_json);
-    lh_dict_free(name_value_pair);
-    return returned_api_key;
+    char *returned_uuid = malloc((UUID_STRING_LEN + 1) * sizeof *returned_uuid);
+    strncpy(returned_uuid, token, UUID_STRING_LEN + 1);
+    return returned_uuid;
 }

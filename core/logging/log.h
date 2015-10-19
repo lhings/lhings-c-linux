@@ -20,6 +20,7 @@
 extern "C" {
 #endif
 
+#define LOGGING_ON
 
 #define LOG_DEBUG    1
 #define LOG_INFO     2
@@ -27,19 +28,30 @@ extern "C" {
 #define LOG_ERROR    4
 #define LOG_FATAL    5
 #define LOG_OFF      6
-    
+
 #define LOG_GET_LEVEL -100
 #define LOG_SET_LEVEL -110
 
-    
-#define log_log(level, message) log_write_log(level, message, __FILE__, __LINE__)
-#define log_debug(message) log_log(LOG_DEBUG, message);
-#define log_info(message) log_log(LOG_INFO, message);
-#define log_warn(message) log_log(LOG_WARNING, message);
-#define log_warning(message) log_log(LOG_WARNING, message);
-#define log_error(message) log_log(LOG_ERROR, message);
-#define log_fatal(message) log_log(LOG_FATAL, message);
-    
+
+#ifdef LOGGING_ON
+    #define log_log(level, message) log_write_log(level, message, __FILE__, __LINE__);
+    #define log_debug(message) log_log(LOG_DEBUG, message);
+    #define log_info(message) log_log(LOG_INFO, message);
+    #define log_warn(message) log_log(LOG_WARNING, message);
+    #define log_warning(message) log_log(LOG_WARNING, message);
+    #define log_error(message) log_log(LOG_ERROR, message);
+    #define log_fatal(message) log_log(LOG_FATAL, message);
+#else
+    #define log_log(level, message) log_do_nothing();
+    #define log_debug(message) log_do_nothing();
+    #define log_info(message) log_do_nothing();
+    #define log_warn(message) log_do_nothing();
+    #define log_warning(message) log_do_nothing();
+    #define log_error(message) log_do_nothing();
+    #define log_fatal(message) log_do_nothing();
+
+    int log_do_nothing();
+#endif    
     /**
      * Sets the log level. Available levels are LOG_DEBUG, LOG_INFO, LOG_WARNING,
      * LOG_ERROR, and LOG_FATAL. To disable logging at all set the level to 
@@ -48,12 +60,13 @@ extern "C" {
      * @param level
      */
     void log_set_level(int level);
-    
+
     /**
      * Returns the current value of the log level.
      */
     int log_get_level();
-    
+
+#ifdef LOGGING_ON
     /**
      * Writes a line to the log. This function is not meant to be used directly,
      * use log_log(level, message) instead.
@@ -65,7 +78,9 @@ extern "C" {
      * returns the log level with which the message was logged.
      */
     int log_write_log(int level, const char *message, const char *filename, int line);
+#endif
     
+
     /**
      * Function that generates a string containing a message, given a template
      * for printf and a string argument. Used to ease generation of log messages.
@@ -74,7 +89,7 @@ extern "C" {
      * @return 
      */
     char* lh_get_message_str(const char *template, const char *str);
-    
+
     /**
      * Function that generates a string containing a message, given a template
      * for printf and a integer argument. Used to ease generation of log messages.
@@ -83,7 +98,7 @@ extern "C" {
      * @return 
      */
     char* lh_get_message_int(const char *template, const int number);
-    
+
 
 #ifdef	__cplusplus
 }

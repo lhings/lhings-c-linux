@@ -18,7 +18,6 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include <time.h>
 #include "../utils/utils.h"
 #include "../logging/log.h"
 #include "../crypto/hmac.h"
@@ -203,7 +202,7 @@ StunMessage* stun_new_empty_stun_message(){
 StunMessage* stun_new_stun_message(uint16_t length, uint8_t set_tr_id) {
     static uint8_t random_generator_initialized = STUN_FALSE;
     if (!random_generator_initialized) {
-        srand(time(NULL));
+        srand(lh_get_UTC_unix_time());
         random_generator_initialized = STUN_TRUE;
     }
 

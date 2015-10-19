@@ -96,6 +96,16 @@ extern "C" {
 #define DELAY_BETWEEN_KEEPALIVES_SECS 30
 #define LOG_DESCRIPTOR 0
     
+    
+// json serialization 
+#define MAX_STR_TYPE_LEN 9
+#define MIN_COMP_JSON_LEN 22
+#define MIN_ACTION_JSON_LEN 40
+#define MIN_EVENT_JSON_LEN 27
+#define MIN_DESCRIPTOR_JSON_LEN 153
+
+    
+    
     /**
      * enum reflecting the <a href = "http://support.lhings.com/Typed-Parameters.html">Lhings data types</a>.
      */

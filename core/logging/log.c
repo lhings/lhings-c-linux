@@ -18,6 +18,7 @@
 #include <string.h>
 #include "log.h"
 
+#ifdef LOGGING_ON
 int log_write_log(int level, const char *message, const char *filename, int line) {
     static int log_level = LOG_OFF;
     static const char *log_level_tag[] = {"", "DEBUG", "INFO", "WARNING", "ERROR", "FATAL", "OFF"};
@@ -38,6 +39,11 @@ int log_write_log(int level, const char *message, const char *filename, int line
     }
     return 0;
 }
+#else
+int log_do_nothing(){ return 0; }
+
+int log_write_log(int level, const char *message, const char *filename, int line){ log_do_nothing(); }
+#endif
 
 void log_set_level(int level) {
     log_write_log(level, NULL, NULL, LOG_SET_LEVEL);

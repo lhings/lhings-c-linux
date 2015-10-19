@@ -6,16 +6,11 @@
                    projectFiles="true">
       <itemPath>core/utils/data_structures.h</itemPath>
       <itemPath>abstraction/http-comm/http_api.h</itemPath>
-      <itemPath>utils/jsmn.h</itemPath>
-      <itemPath>core/utils/json-builder.h</itemPath>
-      <itemPath>core/utils/json.h</itemPath>
       <itemPath>core/lhings.h</itemPath>
       <itemPath>core/http-comm/lhings_api.h</itemPath>
       <itemPath>core/utils/lhings_json_api.h</itemPath>
       <itemPath>abstraction/timing/lhings_time.h</itemPath>
       <itemPath>core/logging/log.h</itemPath>
-      <itemPath>utils/newfile.h</itemPath>
-      <itemPath>file-system/storage_api.h</itemPath>
       <itemPath>core/stun-messaging/stun_message.h</itemPath>
       <itemPath>abstraction/udp-comm/udp_api.h</itemPath>
       <itemPath>core/utils/utils.h</itemPath>
@@ -46,8 +41,6 @@
       <itemPath>tests/data_structures_tests.c</itemPath>
       <itemPath>tests/hmac_sha1_test.c</itemPath>
       <itemPath>abstraction/http-comm/http_api.c</itemPath>
-      <itemPath>core/utils/json-builder.c</itemPath>
-      <itemPath>core/utils/json.c</itemPath>
       <itemPath>core/lhings.c</itemPath>
       <itemPath>core/http-comm/lhings_api.c</itemPath>
       <itemPath>core/utils/lhings_json_api.c</itemPath>
@@ -148,14 +141,6 @@
       </item>
       <item path="core/utils/data_structures.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="core/utils/json-builder.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="core/utils/json-builder.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="core/utils/json.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="core/utils/json.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="core/utils/lhings_json_api.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="core/utils/lhings_json_api.h" ex="false" tool="3" flavor2="0">
@@ -163,8 +148,6 @@
       <item path="core/utils/utils.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="core/utils/utils.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="file-system/storage_api.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -175,10 +158,6 @@
       <item path="tests/logging_system_tests.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="tests/stun_message_tests.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="utils/jsmn.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="utils/newfile.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
     <conf name="Release" type="1">
@@ -252,14 +231,6 @@
       </item>
       <item path="core/utils/data_structures.h" ex="false" tool="3" flavor2="0">
       </item>
-      <item path="core/utils/json-builder.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="core/utils/json-builder.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="core/utils/json.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="core/utils/json.h" ex="false" tool="3" flavor2="0">
-      </item>
       <item path="core/utils/lhings_json_api.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="core/utils/lhings_json_api.h" ex="false" tool="3" flavor2="0">
@@ -267,8 +238,6 @@
       <item path="core/utils/utils.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="core/utils/utils.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="file-system/storage_api.h" ex="false" tool="3" flavor2="0">
       </item>
       <item path="main.c" ex="false" tool="0" flavor2="0">
       </item>
@@ -279,10 +248,6 @@
       <item path="tests/logging_system_tests.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="tests/stun_message_tests.c" ex="false" tool="0" flavor2="0">
-      </item>
-      <item path="utils/jsmn.h" ex="false" tool="3" flavor2="0">
-      </item>
-      <item path="utils/newfile.h" ex="false" tool="3" flavor2="0">
       </item>
     </conf>
   </confs>

@@ -20,9 +20,10 @@
 extern "C" {
 #endif
 
-#include "json.h"
-#include "data_structures.h"
 
+#include "data_structures.h"
+#define UUID_STRING_LEN 36
+    
 char* lh_json_get_api_key(char *json_text);
 char* lh_json_get_dev_uuid(char *json_text);
 
