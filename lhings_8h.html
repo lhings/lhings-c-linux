@@ -132,6 +132,21 @@ Macros</h2></td></tr>
 <tr class="memitem:a87bfa41843f9bc71afc8155ed4fc38d6"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a87bfa41843f9bc71afc8155ed4fc38d6"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><b>LOG_DESCRIPTOR</b>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a87bfa41843f9bc71afc8155ed4fc38d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0abac35f0949d4a62bb6463d1d6bcb2"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad0abac35f0949d4a62bb6463d1d6bcb2"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MAX_STR_TYPE_LEN</b>&#160;&#160;&#160;9</td></tr>
+<tr class="separator:ad0abac35f0949d4a62bb6463d1d6bcb2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af5ae784213e72e01cc90d68b7f153fd9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af5ae784213e72e01cc90d68b7f153fd9"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_COMP_JSON_LEN</b>&#160;&#160;&#160;22</td></tr>
+<tr class="separator:af5ae784213e72e01cc90d68b7f153fd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aef3817a4682d13f8f09751a47e4c3180"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aef3817a4682d13f8f09751a47e4c3180"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_ACTION_JSON_LEN</b>&#160;&#160;&#160;40</td></tr>
+<tr class="separator:aef3817a4682d13f8f09751a47e4c3180"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344f35feac0a44c9d7c6efcbf35d5078"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a344f35feac0a44c9d7c6efcbf35d5078"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_EVENT_JSON_LEN</b>&#160;&#160;&#160;27</td></tr>
+<tr class="separator:a344f35feac0a44c9d7c6efcbf35d5078"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1edab279e8e2111a17cd3ae9d34d622"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af1edab279e8e2111a17cd3ae9d34d622"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><b>MIN_DESCRIPTOR_JSON_LEN</b>&#160;&#160;&#160;153</td></tr>
+<tr class="separator:af1edab279e8e2111a17cd3ae9d34d622"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -206,6 +221,9 @@ Functions</h2></td></tr>
 <tr class="memitem:aa499983cb8545f61f0cd0d3ae21a5376"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lhings_8h.html#aa499983cb8545f61f0cd0d3ae21a5376">lh_send_event</a> (<a class="el" href="lhings_8h.html#a7fc721d1beaa907b9312f4326788f4fd">LH_Device</a> *device, char *event_name, char *payload, <a class="el" href="structlist.html">LH_List</a> *components)</td></tr>
 <tr class="memdesc:aa499983cb8545f61f0cd0d3ae21a5376"><td class="mdescLeft">&#160;</td><td class="mdescRight">Notifies Lhings about the occurence of the named event, optionally with a <a href="http://support.lhings.com/Event-Payload.html">payload</a>.  <a href="#aa499983cb8545f61f0cd0d3ae21a5376">More...</a><br/></td></tr>
 <tr class="separator:aa499983cb8545f61f0cd0d3ae21a5376"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a76ee252acd09eb048853b5ab239ed910"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lhings_8h.html#a76ee252acd09eb048853b5ab239ed910">lh_store_status</a> (<a class="el" href="lhings_8h.html#a7fc721d1beaa907b9312f4326788f4fd">LH_Device</a> *device)</td></tr>
+<tr class="memdesc:a76ee252acd09eb048853b5ab239ed910"><td class="mdescLeft">&#160;</td><td class="mdescRight">Automatically stores the status of the device in Lhings, using the <a href="http://support.lhings.com/The-Data-API.html">Data API</a>.  <a href="#a76ee252acd09eb048853b5ab239ed910">More...</a><br/></td></tr>
+<tr class="separator:a76ee252acd09eb048853b5ab239ed910"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -647,7 +665,6 @@ To define arguments of the actions in the call to <a class="el" href="lhings_8h.
 
 <p>This function starts the execution of the device. </p>
 <p>It will connect to Lhings, register the device in Lhings if needed, call <a class="el" href="lhings_8h.html#a4fc01d736fe50cf5b977f755b675f11d" title="This function must be used to define the actions, events and status components of the device...">setup()</a>, send the descriptor and periodically execute the function <a class="el" href="lhings_8h.html#afe461d27b9c48d5921c00d521181f12f" title="Main loop of execution. ">loop()</a>. If there are no errors, the call to this function never returns.</p>
-<p>This function should be called from the main() function of the program.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">device</td><td>A pointer to a structure LH_Device. In practice, a pointer to the variable this_device (defined in <a class="el" href="lhings_8h.html" title="Main header file for the Lhings C library. ">lhings.h</a>) must always be passed. </td></tr>
@@ -658,6 +675,31 @@ To define arguments of the actions in the call to <a class="el" href="lhings_8h.
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>0 if there is no error. On success this function never returns. </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a76ee252acd09eb048853b5ab239ed910"></a>
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int lh_store_status </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lhings_8h.html#a7fc721d1beaa907b9312f4326788f4fd">LH_Device</a> *&#160;</td>
+          <td class="paramname"><em>device</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Automatically stores the status of the device in Lhings, using the <a href="http://support.lhings.com/The-Data-API.html">Data API</a>. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">device</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
 </div>
 </div>
@@ -716,7 +758,7 @@ To define arguments of the actions in the call to <a class="el" href="lhings_8h.
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Fri Oct 9 2015 11:24:02 for lhings-c by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Oct 23 2015 07:20:28 for lhings-c by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.6
 </small></address>

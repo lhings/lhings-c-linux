@@ -20,6 +20,7 @@ var searchData=
   ['lh_5fstart_5fdevice',['lh_start_device',['../lhings_8h.html#a7c62a35e8b95dbf98cfc45b71b7a9459',1,'lhings.c']]],
   ['lh_5fstorage_5fget_5fuuid',['lh_storage_get_uuid',['../storage__api_8h.html#a3f4d1b43e040753f1cc0d9105f6666b2',1,'storage_api.c']]],
   ['lh_5fstorage_5fsave_5fuuid',['lh_storage_save_uuid',['../storage__api_8h.html#a708b2a9e2d9474ac2a30149bc3bf4ef7',1,'storage_api.c']]],
+  ['lh_5fstore_5fstatus',['lh_store_status',['../lhings_8h.html#a76ee252acd09eb048853b5ab239ed910',1,'lhings.c']]],
   ['lh_5fupdate_5ftime_5foffset',['lh_update_time_offset',['../lhings__time_8h.html#a4de70727f921fc33b8ac803c87d1d83e',1,'lhings_time.c']]],
   ['loop',['loop',['../lhings_8h.html#afe461d27b9c48d5921c00d521181f12f',1,'lhings.h']]]
 ];
