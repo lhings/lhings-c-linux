@@ -92,7 +92,11 @@ void loop(){
 }
 
 int main(){
+    // set log level (see core/logging/log.h to see available log levels)
+    // comment macro LOGGING_ON in the same file to completely turn off logging
+    // at compile time
     log_set_level(LOG_DEBUG);
+    // this call is used to start the device. enter your Lhings username and password here
     lh_start_device(&this_device, "Thermometer", "user@example.com", "xxxxxx");
     return 0;
 }
