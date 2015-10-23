@@ -14,6 +14,7 @@
  */
 
 #include <string.h>
+#include <stdlib.h>
 #include "lhings_json_api.h"
 #include "../logging/log.h"
 

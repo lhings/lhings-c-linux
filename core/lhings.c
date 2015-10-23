@@ -179,7 +179,7 @@ char* generate_descriptor(LH_Device *device) {
     add_events(str_json, device->events);
     strcat(str_json, "]}");
 
-    printf("***********\n%s\n*************\n", str_json);
+//    printf("***********\n%s\n*************\n", str_json);
     return str_json;
 }
 
@@ -505,7 +505,7 @@ void process_messages() {
     stun_get_method_and_class(&message, &method, &class);
     char str[100];
     encode_hex(message.bytes + 8, 12, str);
-    printf("STUN message received: class %0x, method %0x, trId %s\n", class, method, str);
+    //printf("STUN message received: class %0x, method %0x, trId %s\n", class, method, str);
     if (class == CL_ERROR) {
         // check for bad timestamp message
         StunAttribute attribute;
@@ -679,7 +679,7 @@ char *build_structured_payload(LH_List *components) {
         json_len += strlen(component->name) + 2;
         switch (component->type) {
             case LH_TYPE_BOOLEAN:
-                if ((uint32_t *) component->value)
+                if (*(uint32_t *) component->value)
                     json_len += true_len;
                 else
                     json_len += false_len;
@@ -713,7 +713,7 @@ char *build_structured_payload(LH_List *components) {
         strcat(json_str, value_key);
         switch (component->type) {
             case LH_TYPE_BOOLEAN:
-                if ((uint32_t *) component->value)
+                if (*(uint32_t *) component->value)
                     strcat(json_str, str_true);
                 else
                     strcat(json_str, str_false);
@@ -775,9 +775,12 @@ int lh_send_event(LH_Device *device, char *event_name, char *payload, LH_List * 
 
     char *json_payload = build_structured_payload(components);
     lh_api_send_event(device, event_name, json_payload);
-    printf("json_payload: %s\n", json_payload);
+//    printf("json_payload: %s\n", json_payload);
     free(json_payload);
     return 1;
 }
 
 
+int lh_store_status(LH_Device *device){
+    return lh_api_store_status(device);
+}

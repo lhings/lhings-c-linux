@@ -42,7 +42,7 @@ extern "C" {
     int lh_api_request_action(LH_Device* device_requester, char* uuid_performer, char* action_name, LH_Dict* arguments);
     int lh_api_send_descriptor(LH_Device* device, char* descriptor);
     int lh_api_send_event(LH_Device* device, char* event_name, char* payload);
-    int lh_api_store_status(LH_Device* device, LH_Dict* status_component_values);
+    int lh_api_store_status(LH_Device* device);
     
 #ifdef	__cplusplus
 }

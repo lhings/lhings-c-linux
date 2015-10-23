@@ -16,17 +16,9 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include "core/stun-messaging/stun_message.h"
-#include "core/utils/utils.h"
-#include "core/crypto/hmac.h"
 #include "core/logging/log.h"
-#include "abstraction/timing/lhings_time.h"
 #include "core/utils/data_structures.h"
-#include "abstraction/http-comm/http_api.h"
 #include "core/lhings.h"
-#include "core/http-comm/lhings_api.h"
-#include "core/utils/lhings_json_api.h"
 
 float temperature;
 int quantity;
@@ -50,36 +42,34 @@ void setup() {
     lh_model_add_status_component(&this_device, "temperature", LH_TYPE_FLOAT, &temperature);
     lh_model_add_status_component(&this_device, "quantity", LH_TYPE_INTEGER, &quantity);
     lh_model_add_status_component(&this_device, "surname", LH_TYPE_STRING, surname);
-    
+
     LH_List *components = lh_list_new();
     lh_list_add(components, lh_model_create_component("quality", LH_TYPE_INTEGER, NULL));
     lh_list_add(components, lh_model_create_component("date", LH_TYPE_STRING, NULL));
     lh_model_add_event(&this_device, "finished", components);
     lh_model_add_event(&this_device, "not_finished", NULL);
-    
+
     LH_List *arguments = lh_list_new();
     lh_list_add(arguments, lh_model_create_component("str_param", LH_TYPE_STRING, NULL));
     lh_list_add(arguments, lh_model_create_component("int_param", LH_TYPE_INTEGER, NULL));
     lh_list_add(arguments, lh_model_create_component("float_param", LH_TYPE_FLOAT, NULL));
     lh_model_add_action(&this_device, "example_action", "example action", arguments, action_example);
-    
+
     temperature = 24.5;
     quantity = 8000;
 
-    
-    last_loop = lh_get_absolute_time_millis();
+
+
 }
 
 void loop() {
     static int counter = 0;
-    uint32_t time_now = lh_get_absolute_time_millis();
-    int period = time_now - last_loop;
-    last_loop = time_now;
-    printf("loop is executing... %d\n", period);
-    if ((counter + 1) % 15 == 0)
+    if ((counter + 1) % 15 == 0) {
         lh_send_event(&this_device, "not_finished", NULL, NULL);
-    
-    if ((counter + 7) % 15 == 0){
+        lh_store_status(&this_device);
+    }
+
+    if ((counter + 7) % 15 == 0) {
         LH_List *components = lh_list_new();
         char string[] = "OCT 21 2015";
         uint32_t number = 10;
@@ -97,8 +87,8 @@ void loop() {
 
 int main() {
     log_set_level(LOG_DEBUG);
-        lh_start_device(&this_device, "C_Super_Device2", "user@example.com", "xxxxxxx");
-    
+    lh_start_device(&this_device, "C_Super_Device2", "user@example.com", "xxxxxx");
+    return 0;
 }
 
 

@@ -320,7 +320,13 @@ extern "C" {
      */
     int lh_send_event(LH_Device *device, char *event_name, char *payload, LH_List *components);
     
-
+    /**
+     * Automatically stores the status of the device in Lhings, using the
+     * <a href="http://support.lhings.com/The-Data-API.html">Data API</a>.
+     * @param device
+     * @return 
+     */
+    int lh_store_status(LH_Device *device);
     
 #ifdef	__cplusplus
 }

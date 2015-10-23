@@ -27,6 +27,9 @@ release: all
 
 all: main core abstraction
 
+thermometer: core abstraction examples/thermometer.c
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/thermometer.o examples/thermometer.c
+	$(CC) $(OUT_DIR)/*.o $(LDFLAGS) -o $(OUT_DIR)/thermometer
 
 build_dir:
 	mkdir -p $(OUT_DIR)
