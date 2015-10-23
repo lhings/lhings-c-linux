@@ -13,10 +13,15 @@ The Linux port of the Lhings C library depends only on the standard C library an
 of almost any recent Linux distribution. 
 
 You can compile the
-project inmediately after cloning the git repository by executing make at the command line.
+project inmediately after cloning the git repository by executing make at the command line. A makefile is
+provided. You can compile the example `examples/thermometer.c` with the command:
+
+`make -f Makefile.prj clean thermometer`
+
+Use `make -f Makefile.prj clean debug` to compile your program in the file `main.c` with debug symbols. To obtain a release binary (no debug symbols) execute `make -f Makefile.prj clean release`. 
 
 For ease of use, project files for both [Netbeans](https://netbeans.org/) and 
-[Code::Blocks](http://www.codeblocks.org/) IDE's are provided. 
+[Code::Blocks](http://www.codeblocks.org/) IDE's are provided too. 
 
 ## Using the library
 [Reference documentation of the library](http://lhings.github.io/lhings-c-linux/files.html) is provided using DOxygen. 
