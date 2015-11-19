@@ -95,10 +95,11 @@ LH_HttpResponse* http_execute_request(const char* url, LH_Dict* headers, uint8_t
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, &s);
 
         res = curl_easy_perform(curl);
+	
         if (res != CURLE_OK) {
-            char* message_template = "Request to url %s failed.";
-            char* message = malloc((strlen(url) + strlen(message_template) + 1) * sizeof message);
-            sprintf(message, message_template, url);
+            char* message_template = "Request to url %s failed. CURLcode %d.";
+            char* message = malloc((strlen(url) + strlen(message_template) + 15) * sizeof message);
+            sprintf(message, message_template, url, res);
             log_error(message);
             free(message);
         }
