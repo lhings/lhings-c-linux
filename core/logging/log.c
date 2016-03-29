@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "log.h"
+#include "../../abstraction/logging/platform-logging.h"
 
 #ifdef LOGGING_ON
 int log_write_log(int level, const char *message, const char *filename, int line) {
@@ -34,7 +35,7 @@ int log_write_log(int level, const char *message, const char *filename, int line
     
     if (!(level < log_level || level > LOG_FATAL)) {
         // print log line
-        printf("%s (in %s:%d): %s\n", log_level_tag[level], filename, line, message);
+        lh_printf(log_level_tag[level], filename, line, message);
         return level;
     }
     return 0;

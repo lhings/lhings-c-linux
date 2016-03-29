@@ -39,7 +39,10 @@ main: main.c build_dir
 
 core: lhings crypto http-comm logging messaging utils
 
-abstraction: abs-http-comm permanent-storage timing udp-comm
+abstraction: abs-http-comm permanent-storage timing udp-comm abs-logging
+
+abs-logging: abstraction/logging/platform-logging.c build_dir
+	$(CC) $(CFLAGS) -o $(OUT_DIR)/platform-logging.o abstraction/logging/platform-logging.c
 
 abs-http-comm: abstraction/http-comm/http_api.c build_dir
 	$(CC) $(CFLAGS) -o $(OUT_DIR)/http_api.o abstraction/http-comm/http_api.c

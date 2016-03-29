@@ -319,6 +319,17 @@ StunMessage* stun_get_keepalive_message(LH_Device *device){
     return message;
 }
 
+StunMessage* stun_get_event_message(LH_Device *device, char *event_name, char *payload){
+    StunMessage *message = stun_new_empty_stun_message();
+    message = stun_add_common_attrs(message, device);
+    stun_set_method_and_class(message, M_EVENT, CL_REQUEST);
+    stun_add_attribute(message, ATTR_NAME, strlen(event_name), (uint8_t*) event_name);
+    if(payload != NULL)
+        stun_add_attribute(message, ATTR_PAYLOAD, strlen(payload), (uint8_t*) payload);
+    message = stun_set_message_integrity(message, device->api_key);
+    return message;
+}
+
 StunMessage* stun_get_success_response(LH_Device *device, StunMessage *received_message, StunAttribute *additional_attr){
     StunMessage *response_message = stun_new_empty_stun_message();
     response_message = stun_add_common_attrs(response_message, device);

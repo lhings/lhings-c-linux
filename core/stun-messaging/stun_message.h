@@ -299,6 +299,15 @@ extern "C" {
     
     
     /**
+     * Generates a ready to send event message for the given device.
+     * @param device
+     * @param event_name The name of the event to be sent.
+     * @param payload The payload associated with the event, in string form.
+     * @return 
+     */
+    StunMessage* stun_get_event_message(LH_Device *device, char *event_name, char *payload);
+    
+    /**
      * Generates a ready to send success message that acknowledges the reception
      * of the given message.
      * @param device

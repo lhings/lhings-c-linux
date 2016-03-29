@@ -11,6 +11,7 @@
       <itemPath>core/utils/lhings_json_api.h</itemPath>
       <itemPath>abstraction/timing/lhings_time.h</itemPath>
       <itemPath>core/logging/log.h</itemPath>
+      <itemPath>abstraction/logging/platform-logging.h</itemPath>
       <itemPath>core/stun-messaging/stun_message.h</itemPath>
       <itemPath>abstraction/udp-comm/udp_api.h</itemPath>
       <itemPath>core/utils/utils.h</itemPath>
@@ -48,6 +49,7 @@
       <itemPath>core/logging/log.c</itemPath>
       <itemPath>tests/logging_system_tests.c</itemPath>
       <itemPath>main.c</itemPath>
+      <itemPath>abstraction/logging/platform-logging.c</itemPath>
       <itemPath>abstraction/permanent-storage/storage_api.c</itemPath>
       <itemPath>core/stun-messaging/stun_message.c</itemPath>
       <itemPath>tests/stun_message_tests.c</itemPath>
@@ -93,6 +95,16 @@
       <item path="abstraction/http-comm/http_api.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="abstraction/http-comm/http_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/logging/platform-logging.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="abstraction/logging/platform-logging.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="abstraction/permanent-storage/storage_api.c"
             ex="false"
@@ -183,6 +195,16 @@
       <item path="abstraction/http-comm/http_api.c" ex="false" tool="0" flavor2="0">
       </item>
       <item path="abstraction/http-comm/http_api.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="abstraction/logging/platform-logging.c"
+            ex="false"
+            tool="0"
+            flavor2="0">
+      </item>
+      <item path="abstraction/logging/platform-logging.h"
+            ex="false"
+            tool="3"
+            flavor2="0">
       </item>
       <item path="abstraction/permanent-storage/storage_api.c"
             ex="false"

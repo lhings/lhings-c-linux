@@ -23,7 +23,8 @@
 #include "../utils/lhings_json_api.h"
 #include "../utils/lhings_json_api.h"
 #include "../utils/data_structures.h"
-
+#include "../stun-messaging/stun_message.h"
+#include "../../abstraction/udp-comm/udp_api.h"
 
 
 
@@ -100,7 +101,6 @@ char* lh_api_get_api_key(const char* username, const char* password){
     
     LH_Dict* headers = lh_dict_new();
     
-    
     LH_HttpResponse* response = lh_http_execute_get(url, headers);
     if (*response->http_code != HTTP_OK){
         int server_response_len = strlen(response->response_body);
@@ -157,34 +157,45 @@ int lh_api_register_device(LH_Device* device){
 }
 
 int lh_api_send_event(LH_Device* device, char* event_name, char* payload){
-    char* url = malloc((LHINGS_V1_API_PREFIX_LEN + strlen("devices/") + UUID_STRING_LEN + strlen("/events/") + strlen(event_name) + 1) * sizeof url);
-    url[0] = 0;
-    strcat(url, LHINGS_V1_API_PREFIX);
-    strcat(url, "devices/");
-    strcat(url, device->uuid);
-    strcat(url, "/events/");
-    strcat(url, event_name);
-    
-    LH_Dict* headers = lh_dict_new();
-    lh_dict_put(headers, "X-Api-Key", device->api_key);
-    lh_dict_put(headers, "Content-Type", "application/json");
-    LH_HttpResponse* response = lh_http_execute_post(url, headers, payload);
-    if (*response->http_code != HTTP_OK){
-        char* log_msg = lh_get_message_str("Could not send event. Reason: %s", response->response_body);
-        log_warn(log_msg);
-        free(log_msg);
-        lh_http_free(response);
-        lh_dict_free(headers);
-        free(url);
+    StunMessage *msg_event = stun_get_event_message(device, event_name, payload);
+    int sent_success = lh_send_to_server(msg_event);
+    stun_free(msg_event);
+    if (sent_success){
+        log_info("Keepalive sent");
+        return 1;
+    } else {
+        log_warn("Event message could not be sent")
         return 0;
     }
-    char *message = lh_get_message_str("Sent event %s", event_name);
-    log_info(message);
-    free(message);
-    lh_http_free(response);
-    lh_dict_free(headers);
-    free(url);
-    return 1;
+    
+//    char* url = malloc((LHINGS_V1_API_PREFIX_LEN + strlen("devices/") + UUID_STRING_LEN + strlen("/events/") + strlen(event_name) + 1) * sizeof url);
+//    url[0] = 0;
+//    strcat(url, LHINGS_V1_API_PREFIX);
+//    strcat(url, "devices/");
+//    strcat(url, device->uuid);
+//    strcat(url, "/events/");
+//    strcat(url, event_name);
+//    
+//    LH_Dict* headers = lh_dict_new();
+//    lh_dict_put(headers, "X-Api-Key", device->api_key);
+//    lh_dict_put(headers, "Content-Type", "application/json");
+//    LH_HttpResponse* response = lh_http_execute_post(url, headers, payload);
+//    if (*response->http_code != HTTP_OK){
+//        char* log_msg = lh_get_message_str("Could not send event. Reason: %s", response->response_body);
+//        log_warn(log_msg);
+//        free(log_msg);
+//        lh_http_free(response);
+//        lh_dict_free(headers);
+//        free(url);
+//        return 0;
+//    }
+//    char *message = lh_get_message_str("Sent event %s", event_name);
+//    log_info(message);
+//    free(message);
+//    lh_http_free(response);
+//    lh_dict_free(headers);
+//    free(url);
+//    return 1;
 }
 
 int lh_api_send_descriptor(LH_Device* device, char* descriptor){

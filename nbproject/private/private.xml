@@ -7,31 +7,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/http-comm/lhings_api.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/json.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/http-comm/http_api.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/utils.h</file>
+            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/udp-comm/udp_api.h</file>
             <file>file:/home/jose/NetBeansProjects/lhings-c/core/logging/log.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/tests/logging_system_tests.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/main.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/stun-messaging/stun_message.c</file>
+            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/udp-comm/udp_api.c</file>
             <file>file:/home/jose/NetBeansProjects/lhings-c/core/lhings.c</file>
             <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/timing/lhings_time.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/http-comm/http_api.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/tests/stun_message_tests.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/http-comm/lhings_api.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/udp-comm/udp_api.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/permanent-storage/storage_api.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/json-builder.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/lhings_json_api.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/timing/lhings_time.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/lhings.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/tests/hmac_sha1_test.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/stun-messaging/stun_message.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/abstraction/permanent-storage/storage_api.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/json-builder.h</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/logging/log.c</file>
-            <file>file:/home/jose/NetBeansProjects/lhings-c/core/utils/data_structures.h</file>
         </group>
     </open-files>
 </project-private>

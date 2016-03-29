@@ -36,6 +36,7 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 # Object Files
 OBJECTFILES= \
 	${OBJECTDIR}/abstraction/http-comm/http_api.o \
+	${OBJECTDIR}/abstraction/logging/platform-logging.o \
 	${OBJECTDIR}/abstraction/permanent-storage/storage_api.o \
 	${OBJECTDIR}/abstraction/timing/lhings_time.o \
 	${OBJECTDIR}/abstraction/udp-comm/udp_api.o \
@@ -85,6 +86,11 @@ ${OBJECTDIR}/abstraction/http-comm/http_api.o: abstraction/http-comm/http_api.c
 	${MKDIR} -p ${OBJECTDIR}/abstraction/http-comm
 	${RM} "$@.d"
 	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/abstraction/http-comm/http_api.o abstraction/http-comm/http_api.c
+
+${OBJECTDIR}/abstraction/logging/platform-logging.o: abstraction/logging/platform-logging.c 
+	${MKDIR} -p ${OBJECTDIR}/abstraction/logging
+	${RM} "$@.d"
+	$(COMPILE.c) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/abstraction/logging/platform-logging.o abstraction/logging/platform-logging.c
 
 ${OBJECTDIR}/abstraction/permanent-storage/storage_api.o: abstraction/permanent-storage/storage_api.c 
 	${MKDIR} -p ${OBJECTDIR}/abstraction/permanent-storage
