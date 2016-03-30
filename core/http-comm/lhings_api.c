@@ -307,37 +307,14 @@ char* generate_store_status_json(LH_List *components){
 }
 
 int lh_api_store_status(LH_Device* device){
-    LH_List* components = device->status_components;
-    if (components == NULL)
+    StunMessage *msg_store = stun_get_status_store_message(device);
+    int sent_success = lh_send_to_server(msg_store);
+    stun_free(msg_store);
+    if (sent_success){
+        log_info("Store status sent");
         return 1;
-    char* request_body = generate_store_status_json(components);
-    char* url = malloc((LHINGS_V1_API_PREFIX_LEN + strlen("devices/") + UUID_STRING_LEN + strlen("/states") + 1) * sizeof url);
-    url[0] = 0;
-    strcat(url, LHINGS_V1_API_PREFIX);
-    strcat(url, "devices/");
-    strcat(url, device->uuid);
-    strcat(url, "/states");
-    
-    LH_Dict* headers = lh_dict_new();
-    lh_dict_put(headers, "X-Api-Key", device->api_key);
-    lh_dict_put(headers, "Content-Type", "application/json");
-    LH_HttpResponse* response = lh_http_execute_post(url, headers, request_body);
-    if (*response->http_code != HTTP_OK){
-        int server_response_len = strlen(response->response_body);
-        char* message_template = "Could not send store status. Reason:\n %s\n";
-        char* message = malloc((strlen(message_template) + server_response_len) * sizeof message);
-        sprintf(message, message_template, response->response_body);
-        log_error(message);
-        free(message);
-        lh_http_free(response);
-        lh_dict_free(headers);
+    } else {
+        log_warn("Store status message could not be sent")
         return 0;
     }
-    
-    printf("%s\n", request_body);
-    lh_http_free(response);
-    lh_dict_free(headers);
-    free(url);
-    free(request_body);
-    return 1;
 }

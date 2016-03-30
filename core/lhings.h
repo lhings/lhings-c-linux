@@ -328,6 +328,9 @@ extern "C" {
      */
     int lh_store_status(LH_Device *device);
     
+    
+    
+    uint8_t* build_arguments_attribute(LH_Device *device, int *len);
 #ifdef	__cplusplus
 }
 #endif

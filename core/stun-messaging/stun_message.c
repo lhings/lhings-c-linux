@@ -323,7 +323,7 @@ StunMessage* stun_get_event_message(LH_Device *device, char *event_name, char *p
     StunMessage *message = stun_new_empty_stun_message();
     message = stun_add_common_attrs(message, device);
     stun_set_method_and_class(message, M_EVENT, CL_REQUEST);
-    stun_add_attribute(message, ATTR_NAME, strlen(event_name), (uint8_t*) event_name);
+    message = stun_add_attribute(message, ATTR_NAME, strlen(event_name), (uint8_t*) event_name);
     if(payload != NULL)
         stun_add_attribute(message, ATTR_PAYLOAD, strlen(payload), (uint8_t*) payload);
     message = stun_set_message_integrity(message, device->api_key);
@@ -342,4 +342,16 @@ StunMessage* stun_get_success_response(LH_Device *device, StunMessage *received_
     memcpy(response_message->bytes + 8, received_message->bytes + 8, 12);
     response_message = stun_set_message_integrity(response_message, device->api_key);
     return response_message;
+}
+
+StunMessage* stun_get_status_store_message(LH_Device *device){
+    StunMessage *message = stun_new_empty_stun_message();
+    message = stun_add_common_attrs(message, device);
+    stun_set_method_and_class(message, M_STORE_STATUS, CL_REQUEST);
+    int length;
+    uint8_t *attr_status_bytes = build_arguments_attribute(&this_device, &length);
+    message = stun_add_attribute(message, ATTR_ARGUMENTS, length, attr_status_bytes);
+    free(attr_status_bytes);
+    message = stun_set_message_integrity(message, device->api_key);
+    return message;
 }

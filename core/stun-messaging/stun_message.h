@@ -91,6 +91,7 @@ extern "C" {
 #define  M_NOTIFICATION       0x0EE5
 #define  M_ACTION             0x0EE5
 #define  M_CUSTOM_COMMAND     0x0EE6
+#define  M_STORE_STATUS       0x0EE7
 
     // LyncNat protocol defined attributes
 #define  ATTR_TIMESTAMP                   0x0C01
@@ -317,6 +318,13 @@ extern "C" {
      */
     StunMessage* stun_get_success_response(LH_Device *device, StunMessage *received_message, StunAttribute *additional_attr);
     
+    /**
+     * Generates a Stun message containing the values of the status components of 
+     * the device, and ask the server to store those values in the cloud.
+     * @param device
+     * @return 
+     */
+    StunMessage* stun_get_status_store_message(LH_Device *device);
     
 #ifdef	__cplusplus
 }
